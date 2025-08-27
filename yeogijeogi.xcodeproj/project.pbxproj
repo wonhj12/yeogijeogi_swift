@@ -29,9 +29,22 @@
 		F75C1B9C2E5DF82A00451E92 /* yeogijeogiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = yeogijeogiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F7F8B2B82E5F294900D7C82C /* Exceptions for "yeogijeogi" folder in "yeogijeogi" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F75C1B842E5DF82900451E92 /* yeogijeogi */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F75C1B872E5DF82900451E92 /* yeogijeogi */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F7F8B2B82E5F294900D7C82C /* Exceptions for "yeogijeogi" folder in "yeogijeogi" target */,
+			);
 			path = yeogijeogi;
 			sourceTree = "<group>";
 		};
@@ -400,6 +413,7 @@
 				DEVELOPMENT_TEAM = 785KK9R5M8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = yeogijeogi/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "여기저기";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -434,6 +448,7 @@
 				DEVELOPMENT_TEAM = 785KK9R5M8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = yeogijeogi/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "여기저기";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
