@@ -13,6 +13,7 @@ struct Surface: ViewModifier {
                 .ignoresSafeArea()
 
             content
+                .padding(.horizontal, 20)
         }
     }
 }

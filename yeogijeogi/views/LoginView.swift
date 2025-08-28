@@ -13,7 +13,6 @@ struct LoginView: View {
             Spacer()
                 .frame(height: 98)
         }
-        .padding(.horizontal, 20)
         .surface()
     }
 }
