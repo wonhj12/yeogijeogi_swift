@@ -17,13 +17,12 @@ struct LoginButton: View {
             .frame(height: 48)
             .padding(.horizontal, 20)
         }
-        .frame(maxWidth: .infinity)
-        .buttonStyle(.borderedProminent)
-        .tint(.container)
+        .frame(width: .infinity, height: 48)
+        .background(.container)
         .cornerRadius(10)
     }
 }
 
 #Preview {
-    LoginButton(type: .apple)
+    LoginView()
 }
