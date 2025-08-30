@@ -1,15 +1,18 @@
 import SwiftUI
 
-struct TimeSelectContainer: View {
+struct ButtonContainer: View {
+    var title: String
+    var buttonText: String
+
     var body: some View {
         HStack {
-            Text("얼마나 걸을까요?")
+            Text(title)
                 .font(.body)
                 .foregroundStyle(.onSurface)
             Spacer()
 
             Button {} label: {
-                Text("1시간 30분")
+                Text(buttonText)
                     .font(.body)
                     .foregroundStyle(.onSurface)
             }
@@ -25,5 +28,5 @@ struct TimeSelectContainer: View {
 }
 
 #Preview {
-    OnboardingView()
+    ButtonContainer(title: "얼마나 걸을까요?", buttonText: "1시간 30분")
 }

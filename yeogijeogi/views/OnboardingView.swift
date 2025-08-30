@@ -18,7 +18,7 @@ struct OnboardingView: View {
             Spacer()
                 .frame(height: 40)
 
-            TimeSelectContainer()
+            ButtonContainer(title: "얼마나 걸을까요?", buttonText: "1시간 30분")
             Spacer()
                 .frame(height: 24)
 
