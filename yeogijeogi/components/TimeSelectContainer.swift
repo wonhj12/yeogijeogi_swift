@@ -15,12 +15,12 @@ struct TimeSelectContainer: View {
             }
             .frame(width: 128, height: 36)
             .background(.surface)
-            .cornerRadius(10)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
         .frame(width: .infinity, height: 64)
         .padding(.horizontal, 20)
         .background(.container)
-        .cornerRadius(20)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
 

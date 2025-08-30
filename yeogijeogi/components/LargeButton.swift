@@ -12,7 +12,7 @@ struct LargeButton: View {
         }
         .frame(height: 56)
         .background(.primaryGreen)
-        .cornerRadius(20)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
 

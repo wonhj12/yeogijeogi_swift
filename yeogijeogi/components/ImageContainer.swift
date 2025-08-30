@@ -7,7 +7,7 @@ struct ImageContainer: View {
                 .frame(maxWidth: .infinity)
                 .aspectRatio(1, contentMode: .fit)
                 .foregroundStyle(.container)
-                .cornerRadius(20)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
 
             VStack {
                 Image(.appIcon)
