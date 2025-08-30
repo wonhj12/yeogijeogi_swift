@@ -8,8 +8,8 @@ struct WalkSelectView: View {
                 .font(.title)
                 .foregroundStyle(.onSurface)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .frame(height: 40)
             Spacer()
+                .frame(height: 40)
 
             ZStack(alignment: .bottom) {
                 NaverMap(coord: (126.9784147, 37.5666805))
