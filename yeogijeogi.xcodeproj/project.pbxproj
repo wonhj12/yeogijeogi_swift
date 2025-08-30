@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F7D551032E619887004144B1 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = F7D551022E619887004144B1 /* NMapsMap */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		F75C1B932E5DF82A00451E92 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7D551032E619887004144B1 /* NMapsMap in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +130,7 @@
 			);
 			name = yeogijeogi;
 			packageProductDependencies = (
+				F7D551022E619887004144B1 /* NMapsMap */,
 			);
 			productName = yeogijeogi;
 			productReference = F75C1B852E5DF82900451E92 /* yeogijeogi.app */;
@@ -208,6 +214,9 @@
 			);
 			mainGroup = F75C1B7C2E5DF82900451E92;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F7D551012E619887004144B1 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F75C1B862E5DF82900451E92 /* Products */;
 			projectDirPath = "";
@@ -585,6 +594,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F7D551012E619887004144B1 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/navermaps/SPM-NMapsMap";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.22.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F7D551022E619887004144B1 /* NMapsMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F7D551012E619887004144B1 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */;
+			productName = NMapsMap;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F75C1B7D2E5DF82900451E92 /* Project object */;
 }
