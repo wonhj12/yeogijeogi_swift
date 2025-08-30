@@ -13,7 +13,7 @@ struct WalkSelectView: View {
 
             ZStack(alignment: .bottom) {
                 NaverMap(coord: (126.9784147, 37.5666805))
-                    .cornerRadius(20)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
 
                 CourseInfoContainer()
                     .padding(20)

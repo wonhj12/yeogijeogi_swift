@@ -40,7 +40,7 @@ struct SliderContainer: View {
         .frame(width: .infinity, height: 120)
         .padding(.horizontal, 20)
         .background(.container)
-        .cornerRadius(20)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
 

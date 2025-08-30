@@ -74,7 +74,7 @@ struct CourseInfoContainer: View {
         .frame(maxWidth: .infinity)
         .padding(20)
         .background(.container)
-        .cornerRadius(20)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
 

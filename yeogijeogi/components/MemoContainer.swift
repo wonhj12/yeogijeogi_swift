@@ -19,7 +19,7 @@ struct MemoContainer: View {
             .font(.body)
             .lineSpacing(6.8)
             .frame(height: 160)
-            .cornerRadius(20)
+            .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
 

@@ -19,7 +19,7 @@ struct LoginButton: View {
         }
         .frame(width: .infinity, height: 48)
         .background(.container)
-        .cornerRadius(10)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
 
