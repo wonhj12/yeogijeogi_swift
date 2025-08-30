@@ -414,6 +414,8 @@
 		};
 		F75C1BA72E5DF82A00451E92 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F75C1B872E5DF82900451E92 /* yeogijeogi */;
+			baseConfigurationReferenceRelativePath = config/Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -449,6 +451,8 @@
 		};
 		F75C1BA82E5DF82A00451E92 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = F75C1B872E5DF82900451E92 /* yeogijeogi */;
+			baseConfigurationReferenceRelativePath = config/Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
