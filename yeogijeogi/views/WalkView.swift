@@ -1,15 +1,17 @@
-//
-//  WalkView.swift
-//  yeogijeogi
-//
-//  Created by hajin on 8/31/25.
-//
-
 import SwiftUI
 
 struct WalkView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack(alignment: .bottom) {
+            NaverMap(
+                positionMode: .direction,
+                contentInset: UIEdgeInsets(top: 0, left: 0, bottom: 96, right: 0)
+            )
+            .ignoresSafeArea()
+
+            LargeButton(title: "산책 종료하기")
+                .padding(20)
+        }
     }
 }
 
