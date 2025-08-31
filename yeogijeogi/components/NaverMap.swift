@@ -14,7 +14,7 @@ struct NaverMap: UIViewRepresentable {
         view.showZoomControls = false
         view.showScaleBar = false
         view.mapView.contentInset = contentInset
-        view.mapView.positionMode = .disabled
+        view.mapView.positionMode = positionMode
         view.mapView.zoomLevel = zoomLevel
         view.mapView.isScrollGestureEnabled = isScrollGestureEnabled
         view.mapView.isZoomGestureEnabled = isZoomGestureEnabled
