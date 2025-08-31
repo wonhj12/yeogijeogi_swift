@@ -20,7 +20,7 @@ struct ButtonContainer: View {
             .background(.surface)
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
-        .frame(width: .infinity, height: 64)
+        .frame(height: 64)
         .padding(.horizontal, 20)
         .background(.container)
         .clipShape(RoundedRectangle(cornerRadius: 20))
