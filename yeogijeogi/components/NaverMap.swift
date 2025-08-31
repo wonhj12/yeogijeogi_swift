@@ -2,17 +2,19 @@ import NMapsMap
 import SwiftUI
 
 struct NaverMap: UIViewRepresentable {
-    var coord: (Double, Double) = (127.0278, 37.59080)
+    var coord: (Double, Double) = (127.032523, 37.589401)
     var positionMode: NMFMyPositionMode = .disabled
     var zoomLevel: Double = 17
     var isScrollGestureEnabled: Bool = true
     var isZoomGestureEnabled: Bool = true
+    var contentInset: UIEdgeInsets = .zero
 
     func makeUIView(context: Context) -> NMFNaverMapView {
         let view = NMFNaverMapView()
         view.showZoomControls = false
         view.showScaleBar = false
-        view.mapView.positionMode = .disabled
+        view.mapView.contentInset = contentInset
+        view.mapView.positionMode = positionMode
         view.mapView.zoomLevel = zoomLevel
         view.mapView.isScrollGestureEnabled = isScrollGestureEnabled
         view.mapView.isZoomGestureEnabled = isZoomGestureEnabled

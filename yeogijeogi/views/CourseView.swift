@@ -5,20 +5,22 @@ struct CourseView: View {
 
     var body: some View {
         ZStack {
-            NaverMap()
-                .ignoresSafeArea()
-                .sheet(isPresented: .constant(true)) {
-                    CourseDetailView(selectedDetent: selectedDetent)
-                        .presentationDetents(
-                            [.height(173), .large],
-                            selection: $selectedDetent
-                        )
-                        .interactiveDismissDisabled(true)
-                        .presentationBackgroundInteraction(
-                            .enabled(upThrough: .height(173))
-                        )
-                        .presentationCornerRadius(20)
-                }
+            NaverMap(
+                contentInset: UIEdgeInsets(top: 0, left: 0, bottom: 173, right: 0)
+            )
+            .ignoresSafeArea()
+            .sheet(isPresented: .constant(true)) {
+                CourseDetailView(selectedDetent: selectedDetent)
+                    .presentationDetents(
+                        [.height(173), .large],
+                        selection: $selectedDetent
+                    )
+                    .interactiveDismissDisabled(true)
+                    .presentationBackgroundInteraction(
+                        .enabled(upThrough: .height(173))
+                    )
+                    .presentationCornerRadius(20)
+            }
         }
     }
 }
