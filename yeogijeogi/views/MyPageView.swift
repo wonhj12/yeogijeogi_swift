@@ -18,7 +18,7 @@ struct MyPageView: View {
                 Spacer()
                     .frame(height: 24)
 
-                SummaryCotainer(distance: 0, time: 0)
+                SummaryContainer(distance: 0, time: 0)
                 Spacer()
                     .frame(height: 24)
 
