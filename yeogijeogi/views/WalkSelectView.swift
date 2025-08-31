@@ -13,7 +13,8 @@ struct WalkSelectView: View {
             ZStack(alignment: .bottom) {
                 NaverMap(
                     isScrollGestureEnabled: false,
-                    isZoomGestureEnabled: false
+                    isZoomGestureEnabled: false,
+                    contentInset: UIEdgeInsets(top: 0, left: 0, bottom: 153, right: 0)
                 )
                 .clipShape(RoundedRectangle(cornerRadius: 20))
 
