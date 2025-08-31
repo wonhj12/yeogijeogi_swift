@@ -11,12 +11,9 @@ struct SettingContainer: View {
                     .foregroundStyle(.onSurface)
                 Spacer()
 
-                Text(
-                    Bundle.main
-                        .infoDictionary?["CFBundleShortVersionString"] as! String
-                )
-                .font(.body)
-                .foregroundStyle(.onSurfaceVariant)
+                Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown")
+                    .font(.body)
+                    .foregroundStyle(.onSurfaceVariant)
             }
             .padding(.horizontal, 20)
             .frame(width: .infinity, height: 40, alignment: .leading)
