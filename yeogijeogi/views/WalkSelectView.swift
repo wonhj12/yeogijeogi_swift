@@ -1,4 +1,3 @@
-import NMapsMap
 import SwiftUI
 
 struct WalkSelectView: View {
@@ -12,8 +11,11 @@ struct WalkSelectView: View {
                 .frame(height: 40)
 
             ZStack(alignment: .bottom) {
-                NaverMap(coord: (126.9784147, 37.5666805))
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                NaverMap(
+                    isScrollGestureEnabled: false,
+                    isZoomGestureEnabled: false
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 20))
 
                 CourseInfoContainer()
                     .padding(20)
@@ -28,31 +30,6 @@ struct WalkSelectView: View {
             LargeButton(title: "산책 시작하기")
         }
         .surface()
-    }
-}
-
-struct NaverMap: UIViewRepresentable {
-    var coord: (Double, Double)
-
-    func makeUIView(context: Context) -> NMFNaverMapView {
-        let view = NMFNaverMapView()
-        view.showZoomControls = false
-        view.showScaleBar = false
-        view.mapView.positionMode = .disabled
-        view.mapView.zoomLevel = 17
-        view.mapView.isScrollGestureEnabled = false
-        view.mapView.isZoomGestureEnabled = false
-        view.mapView.logoMargin = UIEdgeInsets(top: 0, left: 0, bottom: 153, right: 0)
-
-        return view
-    }
-
-    func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
-        let coord = NMGLatLng(lat: coord.1, lng: coord.0)
-        let cameraUpdate = NMFCameraUpdate(scrollTo: coord)
-        cameraUpdate.animation = .fly
-        cameraUpdate.animationDuration = 1
-        uiView.mapView.moveCamera(cameraUpdate)
     }
 }
 
