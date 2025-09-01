@@ -9,15 +9,15 @@ struct LoginButton: View {
                 Image(type.icon)
                     .frame(width: 20, height: 20)
                 Spacer()
+
                 Text(type.text)
                     .foregroundStyle(.onSurface)
                     .font(.callout)
                 Spacer()
             }
-            .frame(height: 48)
             .padding(.horizontal, 20)
         }
-        .frame(width: .infinity, height: 48)
+        .frame(height: 48)
         .background(.container)
         .clipShape(RoundedRectangle(cornerRadius: 10))
     }

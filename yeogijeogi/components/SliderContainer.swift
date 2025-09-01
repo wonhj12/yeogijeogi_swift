@@ -37,7 +37,7 @@ struct SliderContainer: View {
                     .foregroundStyle(.onSurfaceVariant)
             }
         }
-        .frame(width: .infinity, height: 120)
+        .frame(height: 120)
         .padding(.horizontal, 20)
         .background(.container)
         .clipShape(RoundedRectangle(cornerRadius: 20))

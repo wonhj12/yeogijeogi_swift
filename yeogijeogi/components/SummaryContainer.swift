@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SummaryCotainer: View {
+struct SummaryContainer: View {
     var distance: Int
     var time: Int
 
@@ -61,5 +61,5 @@ struct SummaryCotainer: View {
 }
 
 #Preview {
-    SummaryCotainer(distance: 0, time: 0)
+    SummaryContainer(distance: 0, time: 0)
 }
