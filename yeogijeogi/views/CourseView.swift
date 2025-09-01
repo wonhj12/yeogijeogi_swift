@@ -1,27 +1,24 @@
+import BottomSheet
 import SwiftUI
 
 struct CourseView: View {
-    @State private var selectedDetent: PresentationDetent = .height(173)
+    @State private var bottomSheetPosition: BottomSheetPosition = .dynamic
 
     var body: some View {
-        ZStack {
-            NaverMap(
-                contentInset: UIEdgeInsets(top: 0, left: 0, bottom: 173, right: 0)
-            )
+        NaverMap(contentInset: UIEdgeInsets(top: 0, left: 0, bottom: 173, right: 0))
             .ignoresSafeArea()
-            .sheet(isPresented: .constant(true)) {
-                CourseDetailView(selectedDetent: selectedDetent)
-                    .presentationDetents(
-                        [.height(173), .large],
-                        selection: $selectedDetent
-                    )
-                    .interactiveDismissDisabled(true)
-                    .presentationBackgroundInteraction(
-                        .enabled(upThrough: .height(173))
-                    )
-                    .presentationCornerRadius(20)
+            .bottomSheet(
+                bottomSheetPosition: $bottomSheetPosition,
+                switchablePositions: [.dynamicBottom, .dynamic, .dynamicTop]
+            ) {
+                CourseDetailView(bottomSheetPosition: bottomSheetPosition)
             }
-        }
+            .enableContentDrag()
+            .dragIndicatorColor(.onSurfaceVariant)
+            .customBackground(
+                Color.surface
+                    .clipShape(.rect(topLeadingRadius: 20, topTrailingRadius: 20))
+            )
     }
 }
 
