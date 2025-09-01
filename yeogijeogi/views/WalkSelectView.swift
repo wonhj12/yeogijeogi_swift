@@ -1,14 +1,13 @@
 import SwiftUI
 
 struct WalkSelectView: View {
+    @EnvironmentObject private var router: Router
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         VStack {
-            Text("이런 코스를 추천해요!")
-                .font(.title)
-                .foregroundStyle(.onSurface)
-                .frame(maxWidth: .infinity, alignment: .leading)
             Spacer()
-                .frame(height: 40)
+                .frame(height: 24)
 
             ZStack(alignment: .bottom) {
                 NaverMap(
@@ -28,8 +27,13 @@ struct WalkSelectView: View {
             Spacer()
                 .frame(height: 20)
 
-            LargeButton(title: "산책 시작하기")
+            LargeButton(title: "산책 시작하기") {
+                router.path.append(Route.walk)
+            }
         }
+        .navigationTitle("이런 코스를 추천해요!")
+        .navigationBarTitleDisplayMode(.large)
+        .navigationBarBackButtonHidden()
         .surface()
     }
 }

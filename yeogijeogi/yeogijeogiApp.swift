@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct yeogijeogiApp: App {
+    @StateObject private var router = Router()
+
     var body: some Scene {
         WindowGroup {
-            LoginView()
+//            LoginView()
+            ContentView()
+                .environmentObject(router)
         }
     }
 }

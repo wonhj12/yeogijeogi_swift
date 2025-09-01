@@ -1,22 +1,16 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    @EnvironmentObject private var router: Router
+
     var body: some View {
         VStack {
-            Text("산책을 떠나 볼까요?")
-                .font(.title)
-                .foregroundStyle(.onSurface)
-                .frame(maxWidth: .infinity, alignment: .leading)
-
-            Spacer()
-                .frame(height: 8)
-
             Text("산책 코스 추천을 위해 몇가지 질문에 대답해 주세요.")
                 .font(.headline)
                 .foregroundStyle(.onSurface)
                 .frame(maxWidth: .infinity, alignment: .leading)
             Spacer()
-                .frame(height: 40)
+                .frame(height: 24)
 
             ButtonContainer(title: "얼마나 걸을까요?", buttonText: "1시간 30분")
             Spacer()
@@ -31,12 +25,17 @@ struct OnboardingView: View {
                 .tint(.surface)
             Spacer()
 
-            LargeButton(title: "코스 추천 받기")
+            LargeButton(title: "코스 추천 받기") {
+                router.path.append(Route.walkSelect)
+            }
         }
         .surface()
+        .navigationTitle("산책을 떠나 볼까요?")
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 
 #Preview {
     OnboardingView()
+        .environmentObject(Router())
 }

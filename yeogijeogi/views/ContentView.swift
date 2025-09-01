@@ -1,22 +1,36 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedTab: Tab = .walk
+    @EnvironmentObject private var router: Router
 
     var body: some View {
         VStack(spacing: 0) {
-            switch selectedTab {
+            switch router.tab {
             case .course:
                 CourseView()
 
             case .walk:
-                OnboardingView()
+                NavigationStack(path: $router.path) {
+                    OnboardingView()
+                        .navigationDestination(for: Route.self) { route in
+                            switch route {
+                            case Route.walkSelect:
+                                WalkSelectView()
+                            case Route.walk:
+                                WalkView()
+                            case Route.walkSave:
+                                WalkSaveView()
+                            }
+                        }
+                }
 
             case .myPage:
                 MyPageView()
             }
 
-            CustomTabView(selectedTab: $selectedTab)
+            if router.path.last != Route.walk && router.path.last != Route.walkSave {
+                CustomTabView(selectedTab: $router.tab)
+            }
         }
         .background(.surface)
         .ignoresSafeArea(edges: .bottom)
@@ -25,4 +39,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(Router())
 }
