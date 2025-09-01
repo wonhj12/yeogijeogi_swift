@@ -1,6 +1,15 @@
 {
-  "originHash" : "7e776a9f5c59beffd508fcaf65913b75c78f8867da469e517125a03b839d1f0b",
+  "originHash" : "d23c2ef9e569abb4bc17482e7fe38010cde84dbd6c23b102226d5eef12ba34c2",
   "pins" : [
+    {
+      "identity" : "bottomsheet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/lucaszischka/BottomSheet",
+      "state" : {
+        "revision" : "720ddbd1371fef2a09cc1ab65fc503df37767f9c",
+        "version" : "3.1.1"
+      }
+    },
     {
       "identity" : "spm-nmapsgeometry",
       "kind" : "remoteSourceControl",

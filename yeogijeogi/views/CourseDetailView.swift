@@ -1,10 +1,11 @@
+import BottomSheet
 import SwiftUI
 
 struct CourseDetailView: View {
-    let selectedDetent: PresentationDetent
+    let bottomSheetPosition: BottomSheetPosition
 
     var body: some View {
-        if selectedDetent == .large {
+        if bottomSheetPosition == .dynamicTop {
             NavigationStack {
                 ScrollView {
                     VStack {
@@ -17,6 +18,7 @@ struct CourseDetailView: View {
                         }
                     }
                     .padding(.horizontal, 20)
+                    .padding(.bottom, 20)
                 }
                 .navigationTitle("산책 코스 상세 보기")
                 .navigationBarTitleDisplayMode(.inline)
@@ -29,12 +31,12 @@ struct CourseDetailView: View {
                 //            .foregroundStyle(.onSurface)
 
                 CourseInfoContainer()
+                    .padding(20)
             }
-            .surface()
         }
     }
 }
 
 #Preview {
-    CourseDetailView(selectedDetent: .large)
+    CourseDetailView(bottomSheetPosition: .dynamic)
 }

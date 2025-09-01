@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F7D551032E619887004144B1 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = F7D551022E619887004144B1 /* NMapsMap */; };
+		F7FD150A2E65455200C5ADFF /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = F7FD15092E65455200C5ADFF /* BottomSheet */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7D551032E619887004144B1 /* NMapsMap in Frameworks */,
+				F7FD150A2E65455200C5ADFF /* BottomSheet in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +133,7 @@
 			name = yeogijeogi;
 			packageProductDependencies = (
 				F7D551022E619887004144B1 /* NMapsMap */,
+				F7FD15092E65455200C5ADFF /* BottomSheet */,
 			);
 			productName = yeogijeogi;
 			productReference = F75C1B852E5DF82900451E92 /* yeogijeogi.app */;
@@ -216,6 +219,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				F7D551012E619887004144B1 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */,
+				F7FD15082E65453800C5ADFF /* XCRemoteSwiftPackageReference "BottomSheet" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F75C1B862E5DF82900451E92 /* Products */;
@@ -610,6 +614,14 @@
 				minimumVersion = 3.22.1;
 			};
 		};
+		F7FD15082E65453800C5ADFF /* XCRemoteSwiftPackageReference "BottomSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lucaszischka/BottomSheet";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -617,6 +629,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F7D551012E619887004144B1 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */;
 			productName = NMapsMap;
+		};
+		F7FD15092E65455200C5ADFF /* BottomSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F7FD15082E65453800C5ADFF /* XCRemoteSwiftPackageReference "BottomSheet" */;
+			productName = BottomSheet;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
