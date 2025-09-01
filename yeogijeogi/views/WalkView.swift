@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct WalkView: View {
+    @EnvironmentObject private var router: Router
+
     var body: some View {
         ZStack(alignment: .bottom) {
             NaverMap(
@@ -9,12 +11,16 @@ struct WalkView: View {
             )
             .ignoresSafeArea()
 
-            LargeButton(title: "산책 종료하기")
-                .padding(20)
+            LargeButton(title: "산책 종료하기") {
+                router.path.append(Route.walkSave)
+            }
+            .padding(20)
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
 #Preview {
     WalkView()
+        .environmentObject(Router())
 }
