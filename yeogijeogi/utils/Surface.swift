@@ -16,6 +16,7 @@ struct Surface: ViewModifier {
 
             content
                 .padding(.horizontal, applyPadding ? 20 : 0)
+                .padding(.bottom, applyPadding ? 20 : 0)
         }
     }
 }
