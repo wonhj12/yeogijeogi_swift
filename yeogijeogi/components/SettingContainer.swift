@@ -16,7 +16,7 @@ struct SettingContainer: View {
                     .foregroundStyle(.onSurfaceVariant)
             }
             .padding(.horizontal, 20)
-            .frame(width: .infinity, height: 40, alignment: .leading)
+            .frame(height: 40, alignment: .leading)
             .background(.container)
 
             Button {} label: {
@@ -32,7 +32,7 @@ struct SettingContainer: View {
                 }
             }
             .padding(.horizontal, 20)
-            .frame(width: .infinity, height: 40, alignment: .leading)
+            .frame(height: 40, alignment: .leading)
             .background(.container)
 
             Button {} label: {
@@ -48,7 +48,7 @@ struct SettingContainer: View {
                 }
             }
             .padding(.horizontal, 20)
-            .frame(width: .infinity, height: 40, alignment: .leading)
+            .frame(height: 40, alignment: .leading)
             .background(.container)
             Spacer()
         }
