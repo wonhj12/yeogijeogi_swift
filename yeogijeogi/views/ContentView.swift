@@ -1,43 +1,51 @@
+import FirebaseAuth
 import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject private var router: Router
+    @EnvironmentObject private var authenticator: Authenticator
 
     var body: some View {
-        VStack(spacing: 0) {
-            switch router.tab {
-            case .course:
-                CourseView()
+        if authenticator.signState == .signOut {
+            LoginView()
+                .onAppear { authenticator.checkSignState() }
+        } else {
+            VStack(spacing: 0) {
+                switch router.tab {
+                case .course:
+                    CourseView()
 
-            case .walk:
-                NavigationStack(path: $router.path) {
-                    OnboardingView()
-                        .navigationDestination(for: Route.self) { route in
-                            switch route {
-                            case Route.walkSelect:
-                                WalkSelectView()
-                            case Route.walk:
-                                WalkView()
-                            case Route.walkSave:
-                                WalkSaveView()
+                case .walk:
+                    NavigationStack(path: $router.path) {
+                        OnboardingView()
+                            .navigationDestination(for: Route.self) { route in
+                                switch route {
+                                case Route.walkSelect:
+                                    WalkSelectView()
+                                case Route.walk:
+                                    WalkView()
+                                case Route.walkSave:
+                                    WalkSaveView()
+                                }
                             }
-                        }
+                    }
+
+                case .myPage:
+                    MyPageView()
                 }
 
-            case .myPage:
-                MyPageView()
+                if router.path.last != Route.walk && router.path.last != Route.walkSave {
+                    CustomTabView(selectedTab: $router.tab)
+                }
             }
-
-            if router.path.last != Route.walk && router.path.last != Route.walkSave {
-                CustomTabView(selectedTab: $router.tab)
-            }
+            .background(.surface)
+            .ignoresSafeArea(edges: .bottom)
         }
-        .background(.surface)
-        .ignoresSafeArea(edges: .bottom)
     }
 }
 
 #Preview {
     ContentView()
         .environmentObject(Router())
+        .environmentObject(Authenticator())
 }
