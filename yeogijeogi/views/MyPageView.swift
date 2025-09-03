@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct MyPageView: View {
+    @EnvironmentObject private var authenticator: Authenticator
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -58,7 +60,9 @@ struct MyPageView: View {
                     Spacer()
                         .frame(width: 16)
 
-                    Button {} label: {
+                    Button {
+                        authenticator.signOut()
+                    } label: {
                         Text("로그아웃")
                             .font(.caption)
                             .foregroundStyle(.onSurfaceVariant)
