@@ -1,10 +1,14 @@
 import SwiftUI
 
 struct LoginButton: View {
+    @EnvironmentObject private var authenticator: Authenticator
+
     let type: LoginType
 
     var body: some View {
-        Button {} label: {
+        Button {
+            authenticator.signIn()
+        } label: {
             HStack {
                 Image(type.icon)
                     .frame(width: 20, height: 20)
@@ -24,5 +28,6 @@ struct LoginButton: View {
 }
 
 #Preview {
-    LoginView()
+    LoginButton(type: .apple)
+        .environmentObject(Authenticator())
 }
