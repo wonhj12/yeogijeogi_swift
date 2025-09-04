@@ -64,7 +64,16 @@ extension AppleSignIn: ASAuthorizationControllerDelegate, ASAuthorizationControl
             .compactMap { $0 }
             .first?.windows
             .filter { $0.isKeyWindow }.first
-        return keyWindow!
+
+        if let keyWindow = keyWindow {
+            return keyWindow
+        }
+
+        if let window = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            return window.windows.first ?? UIWindow()
+        }
+
+        return UIWindow()
     }
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
