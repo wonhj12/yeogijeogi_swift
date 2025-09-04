@@ -7,7 +7,14 @@ struct LoginButton: View {
 
     var body: some View {
         Button {
-            authenticator.signIn()
+            switch type {
+            case .apple:
+                authenticator.signIn(with: AppleSignIn())
+            case .google:
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let rootViewController = windowScene.windows.first?.rootViewController {
+                    authenticator.signIn(with: GoogleSignIn(presentingViewController: rootViewController))
+                }
+            }
         } label: {
             HStack {
                 Image(type.icon)
