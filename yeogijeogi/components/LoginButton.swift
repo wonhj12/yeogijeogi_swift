@@ -13,6 +13,9 @@ struct LoginButton: View {
             case .google:
                 if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let rootViewController = windowScene.windows.first?.rootViewController {
                     authenticator.signIn(with: GoogleSignIn(presentingViewController: rootViewController))
+                } else {
+                    // TODO: 로그인 실패 로직 추가 필요
+                    print("Google sign-in failed: No root view controller found.")
                 }
             }
         } label: {
