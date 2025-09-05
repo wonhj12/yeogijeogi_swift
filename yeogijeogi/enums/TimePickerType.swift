@@ -6,7 +6,7 @@ enum TimePickerType {
         case .hour:
             return 24
         case .minute:
-            return 59
+            return 60
         }
     }
 
