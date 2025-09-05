@@ -3,6 +3,7 @@ import SwiftUI
 struct ButtonContainer: View {
     var title: String
     var buttonText: String
+    var action: () -> Void = {}
 
     var body: some View {
         HStack {
@@ -11,7 +12,7 @@ struct ButtonContainer: View {
                 .foregroundStyle(.onSurface)
             Spacer()
 
-            Button {} label: {
+            Button(action: action) {
                 Text(buttonText)
                     .font(.body)
                     .foregroundStyle(.onSurface)
