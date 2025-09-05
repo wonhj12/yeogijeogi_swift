@@ -3,6 +3,9 @@ import SwiftUI
 struct OnboardingView: View {
     @EnvironmentObject private var router: Router
 
+    @State private var timePickerPresented: Bool = false
+    @State private var walkTime: Int = 30
+
     var body: some View {
         VStack {
             Text("산책 코스 추천을 위해 몇가지 질문에 대답해 주세요.")
@@ -12,7 +15,9 @@ struct OnboardingView: View {
             Spacer()
                 .frame(height: 24)
 
-            ButtonContainer(title: "얼마나 걸을까요?", buttonText: "1시간 30분")
+            ButtonContainer(title: "얼마나 걸을까요?", buttonText: getTimeText()) {
+                timePickerPresented = true
+            }
             Spacer()
                 .frame(height: 24)
 
@@ -32,6 +37,22 @@ struct OnboardingView: View {
         .surface()
         .navigationTitle("산책을 떠나 볼까요?")
         .navigationBarTitleDisplayMode(.large)
+        .showTimePickerDialog(
+            isPresented: $timePickerPresented,
+            walkTime: $walkTime
+        )
+    }
+
+    // walkTime 값을 n시간 n분 String 값으로 변환
+    private func getTimeText() -> String {
+        let hour = walkTime / 60
+        let minute = walkTime % 60
+
+        var parts: [String] = []
+        if hour > 0 { parts.append("\(hour)시간") }
+        if minute > 0 { parts.append("\(minute)분") }
+
+        return parts.isEmpty ? "0분" : parts.joined(separator: " ")
     }
 }
 
