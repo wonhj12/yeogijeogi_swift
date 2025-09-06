@@ -4,6 +4,7 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject private var router: Router
     @EnvironmentObject private var authenticator: Authenticator
+    @EnvironmentObject private var dialogManager: DialogManager
 
     var body: some View {
         if authenticator.signState == .signOut {
@@ -40,6 +41,14 @@ struct ContentView: View {
             }
             .background(.surface)
             .ignoresSafeArea(edges: .bottom)
+            .showCustomDialog(
+                isPresented: Binding(
+                    get: { dialogManager.currentDialog != nil },
+                    set: { if !$0 { dialogManager.dismiss() } }
+                ),
+                dialogType: dialogManager.currentDialog ?? .error,
+                action: { dialogManager.performAction() }
+            )
         }
     }
 }
@@ -48,4 +57,5 @@ struct ContentView: View {
     ContentView()
         .environmentObject(Router())
         .environmentObject(Authenticator())
+        .environmentObject(DialogManager())
 }

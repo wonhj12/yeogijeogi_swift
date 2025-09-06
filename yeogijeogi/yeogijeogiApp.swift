@@ -21,12 +21,14 @@ struct yeogijeogiApp: App {
 
     @StateObject private var router = Router()
     @StateObject private var authenticator = Authenticator()
+    @StateObject private var dialogManager = DialogManager()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(router)
                 .environmentObject(authenticator)
+                .environmentObject(dialogManager)
         }
     }
 }
