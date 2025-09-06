@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MyPageView: View {
     @EnvironmentObject private var authenticator: Authenticator
+    @StateObject private var dialogManager = DialogManager()
 
     var body: some View {
         NavigationStack {
@@ -46,7 +47,9 @@ struct MyPageView: View {
                 Spacer()
 
                 HStack {
-                    Button {} label: {
+                    Button {
+                        dialogManager.show(.withdraw)
+                    } label: {
                         Text("회원탈퇴")
                             .font(.caption)
                             .foregroundStyle(.onSurfaceVariant)
@@ -61,7 +64,9 @@ struct MyPageView: View {
                         .frame(width: 16)
 
                     Button {
-                        authenticator.signOut()
+                        dialogManager.show(.logout) {
+                            authenticator.signOut()
+                        }
                     } label: {
                         Text("로그아웃")
                             .font(.caption)
@@ -72,10 +77,19 @@ struct MyPageView: View {
             .navigationTitle("마이페이지")
             .navigationBarTitleDisplayMode(.inline)
             .surface()
+            .showCustomDialog(
+                isPresented: Binding(
+                    get: { dialogManager.currentDialog != nil },
+                    set: { if !$0 { dialogManager.dismiss() } }
+                ),
+                dialogType: dialogManager.currentDialog ?? .error,
+                action: { dialogManager.performAction() }
+            )
         }
     }
 }
 
 #Preview {
     MyPageView()
+        .environmentObject(Authenticator())
 }

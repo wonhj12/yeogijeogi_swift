@@ -2,6 +2,8 @@ import BottomSheet
 import SwiftUI
 
 struct CourseDetailView: View {
+    @StateObject private var dialogManager = DialogManager()
+
     let bottomSheetPosition: BottomSheetPosition
 
     var body: some View {
@@ -11,8 +13,8 @@ struct CourseDetailView: View {
                     VStack {
                         CourseSummary()
 
-                        Button {} label: {
-                            Text("삭제하기")
+                        Button { dialogManager.show(.deleteCourse) } label: {
+                            Text("코스 삭제하기")
                                 .font(.caption)
                                 .foregroundStyle(.error)
                         }
@@ -24,6 +26,14 @@ struct CourseDetailView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .surface(applyPadding: false)
             }
+            .showCustomDialog(
+                isPresented: Binding(
+                    get: { dialogManager.currentDialog != nil },
+                    set: { if !$0 { dialogManager.dismiss() } }
+                ),
+                dialogType: dialogManager.currentDialog ?? .error,
+                action: { dialogManager.performAction() }
+            )
         } else {
             VStack {
                 //        Text("아직 산책한 코스가 없어요.")
@@ -38,5 +48,5 @@ struct CourseDetailView: View {
 }
 
 #Preview {
-    CourseDetailView(bottomSheetPosition: .dynamic)
+    CourseDetailView(bottomSheetPosition: .dynamicTop)
 }
