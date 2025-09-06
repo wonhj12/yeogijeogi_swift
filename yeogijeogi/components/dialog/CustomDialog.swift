@@ -33,7 +33,7 @@ struct CustomDialog: View {
                 }
 
                 Button {
-                    if type == .error {
+                    if type != .error {
                         action()
                     }
                     isPresented = false
