@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 
 final class DialogManager: ObservableObject {
     @Published var currentDialog: DialogType? = nil

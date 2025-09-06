@@ -2,7 +2,7 @@ import SwiftUI
 
 struct MyPageView: View {
     @EnvironmentObject private var authenticator: Authenticator
-    @StateObject private var dialogManager = DialogManager()
+    @EnvironmentObject private var dialogManager: DialogManager
 
     var body: some View {
         NavigationStack {
@@ -77,19 +77,10 @@ struct MyPageView: View {
             .navigationTitle("마이페이지")
             .navigationBarTitleDisplayMode(.inline)
             .surface()
-            .showCustomDialog(
-                isPresented: Binding(
-                    get: { dialogManager.currentDialog != nil },
-                    set: { if !$0 { dialogManager.dismiss() } }
-                ),
-                dialogType: dialogManager.currentDialog ?? .error,
-                action: { dialogManager.performAction() }
-            )
         }
     }
 }
 
 #Preview {
     MyPageView()
-        .environmentObject(Authenticator())
 }

@@ -2,7 +2,7 @@ import BottomSheet
 import SwiftUI
 
 struct CourseDetailView: View {
-    @StateObject private var dialogManager = DialogManager()
+    @EnvironmentObject private var dialogManager: DialogManager
 
     let bottomSheetPosition: BottomSheetPosition
 
@@ -26,14 +26,6 @@ struct CourseDetailView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .surface(applyPadding: false)
             }
-            .showCustomDialog(
-                isPresented: Binding(
-                    get: { dialogManager.currentDialog != nil },
-                    set: { if !$0 { dialogManager.dismiss() } }
-                ),
-                dialogType: dialogManager.currentDialog ?? .error,
-                action: { dialogManager.performAction() }
-            )
         } else {
             VStack {
                 //        Text("아직 산책한 코스가 없어요.")
