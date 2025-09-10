@@ -17,8 +17,14 @@
 	<string>${NAVER_MAP_CLIENT_ID}</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>http://127.0.0.1:8000</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
 	</dict>
 	<key>SERVER_URL</key>
 	<string>${SERVER_URL}</string>
