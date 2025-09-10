@@ -35,8 +35,8 @@ class Authenticator: ObservableObject {
                             switch result {
                             case .success:
                                 return
-                            case .failure:
-                                print(result)
+                            case .failure(let error):
+                                print(error.detail)
                                 return
                             }
                         }
