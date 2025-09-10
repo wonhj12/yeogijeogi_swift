@@ -19,16 +19,8 @@ enum APIService {
                 }
 
             case .failure:
-                if let data = response.data {
-                    do {
-                        let errorDetail = try JSONDecoder().decode(ErrorDetail.self, from: data)
-                        completion(.failure(errorDetail))
-                    } catch {
-                        completion(.failure(ErrorDetail(detail: "Unknown server error.")))
-                    }
-                } else {
-                    completion(.failure(ErrorDetail(detail: response.error?.localizedDescription ?? "Unknown error.")))
-                }
+                let error = handleError(from: response)
+                completion(.failure(error))
             }
         }
     }
@@ -39,14 +31,18 @@ enum APIService {
             case .success:
                 completion(.success(()))
             case .failure:
-                if let data = response.data,
-                   let errorDetail = try? JSONDecoder().decode(ErrorDetail.self, from: data)
-                {
-                    completion(.failure(errorDetail))
-                } else {
-                    completion(.failure(ErrorDetail(detail: response.error?.localizedDescription ?? "Unknown error.")))
-                }
+                let error = handleError(from: response)
+                completion(.failure(error))
             }
         }
+    }
+
+    private static func handleError(from response: AFDataResponse<Data>) -> ErrorDetail {
+        if let data = response.data, let errorDetail = try? JSONDecoder().decode(ErrorDetail.self, from: data) {
+            return errorDetail
+        }
+
+        let errorMessage = response.error?.localizedDescription ?? "unknown-error"
+        return ErrorDetail(detail: errorMessage)
     }
 }
