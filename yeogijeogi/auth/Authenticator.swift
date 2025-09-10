@@ -30,7 +30,7 @@ class Authenticator: ObservableObject {
                         return
                     }
                         
-                    if authResult.additionalUserInfo!.isNewUser {
+                    if let userInfo = authResult.additionalUserInfo, userInfo.isNewUser {
                         UserService.shared.createUser { result in
                             switch result {
                             case .success:
