@@ -19,10 +19,27 @@ class Authenticator: ObservableObject {
                     
             switch result {
             case .success(let credential):
-                Auth.auth().signIn(with: credential) { _, error in
+                Auth.auth().signIn(with: credential) { authResult, error in
                     if let error = error {
                         print("Firebase signIn error: \(error.localizedDescription)")
                         return
+                    }
+                    
+                    guard let authResult = authResult else {
+                        print("Auth result is nil.")
+                        return
+                    }
+                        
+                    if let userInfo = authResult.additionalUserInfo, userInfo.isNewUser {
+                        UserService.shared.createUser { result in
+                            switch result {
+                            case .success:
+                                return
+                            case .failure(let error):
+                                print(error.detail)
+                                return
+                            }
+                        }
                     }
                     
                     DispatchQueue.main.async {
