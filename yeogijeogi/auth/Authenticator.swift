@@ -125,18 +125,14 @@ class Authenticator: ObservableObject {
                 UserService.shared.createUser { result in
                     switch result {
                     case .success:
-                        DispatchQueue.main.async {
-                            self.signState = .signIn
-                        }
+                        self.updateSignState(.signIn)
                     case .failure(let error):
                         print(error.detail)
                         return
                     }
                 }
             } else {
-                DispatchQueue.main.async {
-                    self.signState = .signIn
-                }
+                self.updateSignState(.signIn)
             }
         }
     }
