@@ -5,7 +5,7 @@ import GoogleSignIn
 class GoogleSignIn: NSObject, AuthenticationStrategy {
     private weak var presentingViewController: UIViewController?
 
-    init(presentingViewController: UIViewController) {
+    init(presentingViewController: UIViewController?) {
         self.presentingViewController = presentingViewController
     }
 
@@ -43,5 +43,17 @@ class GoogleSignIn: NSObject, AuthenticationStrategy {
     
     func signOut() {
         GIDSignIn.sharedInstance.signOut()
+    }
+    
+    func withdraw(completion: @escaping (Error?) -> Void) {
+        GIDSignIn.sharedInstance.disconnect { error in
+            if let error = error {
+                print("Error disconnecting Google user: \(error.localizedDescription)")
+                completion(error)
+                return
+            }
+            print("Successfully disconnected Google user.")
+            completion(nil)
+        }
     }
 }

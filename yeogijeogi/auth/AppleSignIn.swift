@@ -25,6 +25,10 @@ class AppleSignIn: NSObject, AuthenticationStrategy {
     // 애플 로그인은 별도의 클라이언트 측 로그아웃 API가 필요하지 않음
     func signOut() {}
 
+    func withdraw(completion: @escaping (Error?) -> Void) {
+        completion(nil)
+    }
+
     private func randomNonceString(length: Int = 32) -> String {
         precondition(length > 0)
         var randomBytes = [UInt8](repeating: 0, count: length)
