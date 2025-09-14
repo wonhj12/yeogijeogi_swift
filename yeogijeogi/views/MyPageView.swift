@@ -48,7 +48,9 @@ struct MyPageView: View {
 
                 HStack {
                     Button {
-                        dialogManager.show(.withdraw)
+                        dialogManager.show(.withdraw) {
+                            authenticator.withdraw()
+                        }
                     } label: {
                         Text("회원탈퇴")
                             .font(.caption)
