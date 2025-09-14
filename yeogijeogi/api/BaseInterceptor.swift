@@ -10,7 +10,7 @@ final class BaseInterceptor: RequestInterceptor {
             return
         }
 
-        user.getIDToken { token, error in
+        user.getIDTokenForcingRefresh(true) { token, error in
             if let error = error {
                 completion(.failure(error))
                 return
