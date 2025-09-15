@@ -2,19 +2,21 @@ import Alamofire
 import Foundation
 
 enum UserRouter: RouterInterface {
-    case createUser, deleteUser
+    case createUser, deleteUser, getUser
 
     var modulePath: String { "/user" }
 
     var path: String {
         switch self {
-        case .createUser, .deleteUser:
+        case .createUser, .deleteUser, .getUser:
             return "/"
         }
     }
 
     var method: HTTPMethod {
         switch self {
+        case .getUser:
+            return .get
         case .createUser:
             return .post
         case .deleteUser:
@@ -24,7 +26,7 @@ enum UserRouter: RouterInterface {
 
     var parameters: Parameters? {
         switch self {
-        case .createUser, .deleteUser:
+        case .createUser, .deleteUser, .getUser:
             return nil
         }
     }
