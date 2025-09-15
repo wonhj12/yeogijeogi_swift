@@ -22,6 +22,7 @@ struct yeogijeogiApp: App {
     @StateObject private var router = Router()
     @StateObject private var authenticator = Authenticator()
     @StateObject private var dialogManager = DialogManager()
+    @StateObject private var userModel = UserModel()
 
     var body: some Scene {
         WindowGroup {
@@ -29,6 +30,7 @@ struct yeogijeogiApp: App {
                 .environmentObject(router)
                 .environmentObject(authenticator)
                 .environmentObject(dialogManager)
+                .environmentObject(userModel)
         }
     }
 }
