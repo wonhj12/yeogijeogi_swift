@@ -3,6 +3,7 @@ import SwiftUI
 struct MyPageView: View {
     @EnvironmentObject private var authenticator: Authenticator
     @EnvironmentObject private var dialogManager: DialogManager
+    @EnvironmentObject private var userModel: UserModel
 
     var body: some View {
         NavigationStack {
@@ -21,7 +22,10 @@ struct MyPageView: View {
                 Spacer()
                     .frame(height: 24)
 
-                SummaryContainer(distance: 0, time: 0)
+                SummaryContainer(
+                    distance: userModel.distance,
+                    time: userModel.time
+                )
                 Spacer()
                     .frame(height: 24)
 
@@ -85,4 +89,5 @@ struct MyPageView: View {
 
 #Preview {
     MyPageView()
+        .environmentObject(UserModel())
 }
