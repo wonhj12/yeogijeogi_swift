@@ -5,6 +5,7 @@ struct ContentView: View {
     @EnvironmentObject private var router: Router
     @EnvironmentObject private var authenticator: Authenticator
     @EnvironmentObject private var dialogManager: DialogManager
+    @EnvironmentObject private var userModel: UserModel
 
     var body: some View {
         if authenticator.signState == .signOut {
@@ -49,6 +50,16 @@ struct ContentView: View {
                 dialogType: dialogManager.currentDialog ?? .error,
                 action: { dialogManager.performAction() }
             )
+            .onAppear {
+                UserService.shared.getUser { result in
+                    switch result {
+                    case .success(let dto):
+                        userModel.fromGetUserDTO(dto: dto)
+                    case .failure(let error):
+                        print(error.detail)
+                    }
+                }
+            }
         }
     }
 }
@@ -58,4 +69,5 @@ struct ContentView: View {
         .environmentObject(Router())
         .environmentObject(Authenticator())
         .environmentObject(DialogManager())
+        .environmentObject(UserModel())
 }
