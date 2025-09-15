@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct CustomDialog: View {
-    @Binding var isPresented: Bool
     var type: DialogType
     var action: () -> Void = {}
+    var onDismiss: () -> Void = {}
 
     var body: some View {
         VStack {
@@ -22,9 +22,9 @@ struct CustomDialog: View {
             HStack(spacing: 24) {
                 Spacer()
 
-                if type != .error {
+                if type.hasCancelButton {
                     Button {
-                        isPresented = false
+                        onDismiss()
                     } label: {
                         Text("취소")
                             .font(.callout)
@@ -33,10 +33,10 @@ struct CustomDialog: View {
                 }
 
                 Button {
-                    if type != .error {
+                    if type.hasCancelButton {
                         action()
                     }
-                    isPresented = false
+                    onDismiss()
                 } label: {
                     Text(type.primaryButtonTitle)
                         .font(.headline)
@@ -52,37 +52,5 @@ struct CustomDialog: View {
 }
 
 #Preview {
-    CustomDialog(isPresented: .constant(false), type: .logout)
-}
-
-struct CustomDialogModifier: ViewModifier {
-    @Binding var isPresented: Bool
-    var dialogType: DialogType
-    var action: () -> Void = {}
-
-    func body(content: Content) -> some View {
-        content.overlay {
-            if isPresented {
-                ZStack {
-                    Color.onSurface.opacity(0.3)
-                        .ignoresSafeArea()
-
-                    CustomDialog(isPresented: $isPresented, type: dialogType, action: action)
-                        .padding(.horizontal, 20)
-                }
-            }
-        }
-    }
-}
-
-extension View {
-    func showCustomDialog(isPresented: Binding<Bool>, dialogType: DialogType, action: @escaping () -> Void = {}) -> some View {
-        modifier(
-            CustomDialogModifier(
-                isPresented: isPresented,
-                dialogType: dialogType,
-                action: action
-            )
-        )
-    }
+    CustomDialog(type: .logout)
 }
