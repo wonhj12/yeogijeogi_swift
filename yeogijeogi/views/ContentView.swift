@@ -10,6 +10,7 @@ struct ContentView: View {
     var body: some View {
         if authenticator.signState == .signOut {
             LoginView()
+                .presentDialog()
                 .onAppear { authenticator.checkSignState() }
         } else {
             VStack(spacing: 0) {
@@ -40,16 +41,9 @@ struct ContentView: View {
                     CustomTabView(selectedTab: $router.tab)
                 }
             }
+            .presentDialog()
             .background(.surface)
             .ignoresSafeArea(edges: .bottom)
-            .showCustomDialog(
-                isPresented: Binding(
-                    get: { dialogManager.currentDialog != nil },
-                    set: { if !$0 { dialogManager.dismiss() } }
-                ),
-                dialogType: dialogManager.currentDialog ?? .error,
-                action: { dialogManager.performAction() }
-            )
             .onAppear {
                 UserService.shared.getUser { result in
                     switch result {
