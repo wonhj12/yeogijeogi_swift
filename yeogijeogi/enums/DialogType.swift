@@ -1,7 +1,7 @@
 import SwiftUI
 
 enum DialogType {
-    case logout, withdraw, notSave, deleteCourse, startCourse, error
+    case logout, withdraw, notSave, deleteCourse, startCourse, error(message: String?)
 
     var title: String {
         switch self {
@@ -32,8 +32,8 @@ enum DialogType {
             return "이 작업은 다시 되돌릴 수 없어요."
         case .startCourse:
             return "목적지가 이 코스로 설정돼요."
-        case .error:
-            return "다시 시도해 주세요."
+        case .error(let message):
+            return message ?? "다시 시도해 주세요."
         }
     }
 
@@ -56,18 +56,19 @@ enum DialogType {
 
     var primaryButtonColor: Color {
         switch self {
-        case .logout:
-            return .error
-        case .withdraw:
-            return .error
-        case .notSave:
-            return .error
-        case .deleteCourse:
+        case .logout, .withdraw, .notSave, .deleteCourse, .error:
             return .error
         case .startCourse:
             return .primaryGreen
+        }
+    }
+
+    var hasCancelButton: Bool {
+        switch self {
         case .error:
-            return .error
+            return false
+        default:
+            return true
         }
     }
 }
