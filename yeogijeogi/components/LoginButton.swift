@@ -39,5 +39,4 @@ struct LoginButton: View {
 
 #Preview {
     LoginButton(type: .apple)
-        .environmentObject(Authenticator())
 }
