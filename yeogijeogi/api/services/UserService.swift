@@ -3,15 +3,15 @@ class UserService {
 
     private init() {}
 
-    func createUser(completion: @escaping (Result<Void, ErrorDetail>) -> Void) {
+    func createUser(completion: @escaping (Result<Void, APIError>) -> Void) {
         APIService.request(UserRouter.createUser, completion: completion)
     }
 
-    func deleteUser(completion: @escaping (Result<Void, ErrorDetail>) -> Void) {
+    func deleteUser(completion: @escaping (Result<Void, APIError>) -> Void) {
         APIService.request(UserRouter.deleteUser, completion: completion)
     }
 
-    func getUser(completion: @escaping (Result<GetUserResDTO, ErrorDetail>) -> Void) {
+    func getUser(completion: @escaping (Result<GetUserResDTO, APIError>) -> Void) {
         APIService.request(UserRouter.getUser, completion: completion)
     }
 }

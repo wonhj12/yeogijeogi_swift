@@ -3,11 +3,20 @@ import Foundation
 
 enum APIService {
     static let session: Session = {
+        let configuration = URLSessionConfiguration.default
+
+        // 요청 타임아웃 시간
+        configuration.timeoutIntervalForRequest = 10
+
+        // 리소스 타임아웃 시간
+        configuration.timeoutIntervalForResource = 30
+
         let interceptor = BaseInterceptor()
-        return Session(interceptor: interceptor)
+
+        return Session(configuration: configuration, interceptor: interceptor)
     }()
 
-    static func request<T: Decodable>(_ router: RouterInterface, completion: @escaping (Result<T, ErrorDetail>) -> Void) {
+    static func request<T: Decodable>(_ router: RouterInterface, completion: @escaping (Result<T, APIError>) -> Void) {
         session.request(router).validate().responseData { response in
             switch response.result {
             case .success(let data):
@@ -15,7 +24,7 @@ enum APIService {
                     let decoded = try JSONDecoder().decode(T.self, from: data)
                     completion(.success(decoded))
                 } catch {
-                    completion(.failure(ErrorDetail(detail: "Failed to decode response.")))
+                    completion(.failure(.decodingFailed(error)))
                 }
 
             case .failure:
@@ -25,7 +34,7 @@ enum APIService {
         }
     }
 
-    static func request(_ router: RouterInterface, completion: @escaping (Result<Void, ErrorDetail>) -> Void) {
+    static func request(_ router: RouterInterface, completion: @escaping (Result<Void, APIError>) -> Void) {
         session.request(router).validate().responseData { response in
             switch response.result {
             case .success:
@@ -37,12 +46,61 @@ enum APIService {
         }
     }
 
-    private static func handleError(from response: AFDataResponse<Data>) -> ErrorDetail {
-        if let data = response.data, let errorDetail = try? JSONDecoder().decode(ErrorDetail.self, from: data) {
-            return errorDetail
+    private static func handleError(from response: AFDataResponse<Data>) -> APIError {
+        if let afError = response.error {
+            return .networkError(afError)
         }
 
-        let errorMessage = response.error?.localizedDescription ?? "unknown-error"
-        return ErrorDetail(detail: errorMessage)
+        guard let statusCode = response.response?.statusCode else {
+            return .unknown
+        }
+
+        let errorDetail: ErrorDetail? = {
+            if let data = response.data {
+                return try? JSONDecoder().decode(ErrorDetail.self, from: data)
+            }
+            return nil
+        }()
+
+        switch statusCode {
+        case 401:
+            switch errorDetail?.detail {
+            case "invalid-token": return .invalidToken
+            case "token-expired": return .tokenExpired
+            case "token-revoked": return .tokenRevoked
+            default:
+                return .unauthorized(detail: errorDetail?.detail)
+            }
+
+        case 403:
+            return .forbidden(detail: errorDetail?.detail)
+
+        case 404:
+            switch errorDetail?.detail {
+            case "user-not-found": return .userNotFound
+            default:
+                return .notFound(detail: errorDetail?.detail)
+            }
+
+        case 409:
+            switch errorDetail?.detail {
+            case "user-already-exists": return .userAlreadyExist
+            default:
+                return .badRequest(detail: errorDetail?.detail)
+            }
+
+        case 400...499:
+            return .badRequest(detail: errorDetail?.detail)
+
+        case 500...599:
+            switch errorDetail?.detail {
+            case "user-withdrawal-failed": return .userWithdrawalFailed
+            default:
+                return .serverError(statusCode: statusCode)
+            }
+
+        default:
+            return .unknown
+        }
     }
 }
