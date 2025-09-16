@@ -19,10 +19,25 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct yeogijeogiApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
-    @StateObject private var router = Router()
-    @StateObject private var authenticator = Authenticator()
-    @StateObject private var dialogManager = DialogManager()
-    @StateObject private var userModel = UserModel()
+    @StateObject private var router: Router
+    @StateObject private var dialogManager: DialogManager
+    @StateObject private var authenticator: Authenticator
+    @StateObject private var userModel: UserModel
+
+    init() {
+        let userModel = UserModel()
+        let dialogManager = DialogManager()
+        let authenticator = Authenticator(
+            dialogManager: dialogManager,
+            userModel: userModel
+        )
+        let router = Router()
+
+        _dialogManager = StateObject(wrappedValue: dialogManager)
+        _authenticator = StateObject(wrappedValue: authenticator)
+        _router = StateObject(wrappedValue: router)
+        _userModel = StateObject(wrappedValue: userModel)
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -31,6 +46,7 @@ struct yeogijeogiApp: App {
                 .environmentObject(authenticator)
                 .environmentObject(dialogManager)
                 .environmentObject(userModel)
+                .onAppear { authenticator.checkSignState() }
         }
     }
 }

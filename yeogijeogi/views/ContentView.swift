@@ -11,7 +11,6 @@ struct ContentView: View {
         if authenticator.signState == .signOut {
             LoginView()
                 .presentDialog()
-                .onAppear { authenticator.checkSignState() }
         } else {
             VStack(spacing: 0) {
                 switch router.tab {
@@ -44,16 +43,6 @@ struct ContentView: View {
             .presentDialog()
             .background(.surface)
             .ignoresSafeArea(edges: .bottom)
-            .onAppear {
-                UserService.shared.getUser { result in
-                    switch result {
-                    case .success(let dto):
-                        userModel.fromGetUserDTO(dto: dto)
-                    case .failure(let error):
-                        print(error.detail)
-                    }
-                }
-            }
         }
     }
 }
@@ -61,7 +50,7 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .environmentObject(Router())
-        .environmentObject(Authenticator())
+        .environmentObject(Authenticator(dialogManager: DialogManager(), userModel: UserModel()))
         .environmentObject(DialogManager())
         .environmentObject(UserModel())
 }
