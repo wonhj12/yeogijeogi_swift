@@ -53,7 +53,9 @@ class Authenticator: ObservableObject {
                 self.userModel.fromGetUserDTO(dto: dto)
                 self.updateSignState(.signIn)
             case .failure(let error):
-                self.dialogManager.show(.dialog(type: .error(message: error.localizedDescription)))
+                DispatchQueue.main.async {
+                    self.dialogManager.show(.dialog(type: .error(message: error.localizedDescription)))
+                }
             }
         }
     }
