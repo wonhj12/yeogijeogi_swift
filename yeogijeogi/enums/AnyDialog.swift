@@ -1,7 +1,7 @@
 import SwiftUI
 
 enum AnyDialog {
-    case dialog(type: DialogType, action: () -> Void = {})
+    case dialog(type: DialogType, action: (() -> Void)? = nil)
     case timePicker(walkTime: Binding<Int>)
 
     var isBackgroundDismissable: Bool {

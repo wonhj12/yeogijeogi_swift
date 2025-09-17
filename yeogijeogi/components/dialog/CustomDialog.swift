@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CustomDialog: View {
     var type: DialogType
-    var action: () -> Void = {}
+    var action: (() -> Void)? = nil
     var onDismiss: () -> Void = {}
 
     var body: some View {
@@ -33,7 +33,7 @@ struct CustomDialog: View {
                 }
 
                 Button {
-                    if type.hasCancelButton {
+                    if type.hasCancelButton, let action = action {
                         action()
                     }
                     onDismiss()
