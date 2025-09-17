@@ -5,8 +5,16 @@ import GoogleSignIn
 class Authenticator: ObservableObject {
     @Published var signState: SignState = .signOut
     
+    private let dialogManager: DialogManager
+    private let userModel: UserModel
+    
     private var strategy: AuthenticationStrategy?
     private var user: User?
+    
+    init(dialogManager: DialogManager, userModel: UserModel) {
+        self.dialogManager = dialogManager
+        self.userModel = userModel
+    }
 
     func checkSignState() {
         guard let user = Auth.auth().currentUser else {
@@ -39,7 +47,17 @@ class Authenticator: ObservableObject {
             print("Failed to get strategy: \(error.localizedDescription)")
         }
         
-        updateSignState(.signIn)
+        UserService.shared.getUser { result in
+            switch result {
+            case .success(let dto):
+                self.userModel.fromGetUserDTO(dto: dto)
+                self.updateSignState(.signIn)
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.dialogManager.show(.dialog(type: .error(message: error.localizedDescription)))
+                }
+            }
+        }
     }
     
     func signIn(with strategy: AuthenticationStrategy) {
@@ -93,7 +111,9 @@ class Authenticator: ObservableObject {
                     print("Withdraw completed successfully")
                 }
             case .failure(let error):
-                print(error.detail)
+                DispatchQueue.main.async {
+                    self.dialogManager.show(.dialog(type: .error(message: error.localizedDescription)))
+                }
             }
         }
     }
@@ -127,8 +147,9 @@ class Authenticator: ObservableObject {
                     case .success:
                         self.updateSignState(.signIn)
                     case .failure(let error):
-                        print(error.detail)
-                        return
+                        DispatchQueue.main.async {
+                            self.dialogManager.show(.dialog(type: .error(message: error.localizedDescription)))
+                        }
                     }
                 }
             } else {

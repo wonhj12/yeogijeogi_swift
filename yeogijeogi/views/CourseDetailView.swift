@@ -13,7 +13,7 @@ struct CourseDetailView: View {
                     VStack {
                         CourseSummary()
 
-                        Button { dialogManager.show(.deleteCourse) } label: {
+                        Button { dialogManager.show(.dialog(type: .deleteCourse)) } label: {
                             Text("코스 삭제하기")
                                 .font(.caption)
                                 .foregroundStyle(.error)

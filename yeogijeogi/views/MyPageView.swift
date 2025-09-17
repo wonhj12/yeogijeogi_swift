@@ -52,9 +52,9 @@ struct MyPageView: View {
 
                 HStack {
                     Button {
-                        dialogManager.show(.withdraw) {
+                        dialogManager.show(.dialog(type: .withdraw, action: {
                             authenticator.withdraw()
-                        }
+                        }))
                     } label: {
                         Text("회원탈퇴")
                             .font(.caption)
@@ -70,9 +70,9 @@ struct MyPageView: View {
                         .frame(width: 16)
 
                     Button {
-                        dialogManager.show(.logout) {
+                        dialogManager.show(.dialog(type: .logout, action: {
                             authenticator.signOut()
-                        }
+                        }))
                     } label: {
                         Text("로그아웃")
                             .font(.caption)

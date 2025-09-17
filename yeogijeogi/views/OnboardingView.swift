@@ -2,8 +2,8 @@ import SwiftUI
 
 struct OnboardingView: View {
     @EnvironmentObject private var router: Router
+    @EnvironmentObject private var dialogManager: DialogManager
 
-    @State private var timePickerPresented: Bool = false
     @State private var walkTime: Int = 30
 
     var body: some View {
@@ -16,7 +16,7 @@ struct OnboardingView: View {
                 .frame(height: 24)
 
             ButtonContainer(title: "얼마나 걸을까요?", buttonText: getTimeText()) {
-                timePickerPresented = true
+                dialogManager.show(.timePicker(walkTime: $walkTime))
             }
             Spacer()
                 .frame(height: 24)
@@ -37,10 +37,6 @@ struct OnboardingView: View {
         .surface()
         .navigationTitle("산책을 떠나 볼까요?")
         .navigationBarTitleDisplayMode(.large)
-        .showTimePickerDialog(
-            isPresented: $timePickerPresented,
-            walkTime: $walkTime
-        )
     }
 
     // walkTime 값을 n시간 n분 String 값으로 변환

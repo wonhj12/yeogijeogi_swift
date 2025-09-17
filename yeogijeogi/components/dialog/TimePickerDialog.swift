@@ -1,11 +1,12 @@
 import SwiftUI
 
 struct TimePickerDialog: View {
-    @Binding var isPresented: Bool
     @Binding var walkTime: Int
 
     @State private var hour: Int = 0
     @State private var minute: Int = 0
+
+    var onDismiss: () -> Void = {}
 
     var body: some View {
         VStack(alignment: .trailing) {
@@ -18,7 +19,7 @@ struct TimePickerDialog: View {
 
             Button {
                 walkTime = hour * 60 + minute
-                isPresented = false
+                onDismiss()
             } label: {
                 Text("완료")
                     .font(.headline)
@@ -48,36 +49,5 @@ struct TimePickerDialog: View {
 }
 
 #Preview {
-    TimePickerDialog(
-        isPresented: .constant(false),
-        walkTime: .constant(30)
-    )
-}
-
-struct TimePickerModifier: ViewModifier {
-    @Binding var isPresented: Bool
-    @Binding var walkTime: Int
-
-    func body(content: Content) -> some View {
-        content.overlay {
-            if isPresented {
-                ZStack {
-                    Color.onSurface.opacity(0.3)
-                        .ignoresSafeArea()
-                        .onTapGesture { isPresented = false }
-
-                    TimePickerDialog(
-                        isPresented: $isPresented,
-                        walkTime: $walkTime
-                    )
-                }
-            }
-        }
-    }
-}
-
-extension View {
-    func showTimePickerDialog(isPresented: Binding<Bool>, walkTime: Binding<Int>) -> some View {
-        modifier(TimePickerModifier(isPresented: isPresented, walkTime: walkTime))
-    }
+    TimePickerDialog(walkTime: .constant(30))
 }

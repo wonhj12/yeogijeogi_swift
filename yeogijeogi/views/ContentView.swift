@@ -10,7 +10,7 @@ struct ContentView: View {
     var body: some View {
         if authenticator.signState == .signOut {
             LoginView()
-                .onAppear { authenticator.checkSignState() }
+                .presentDialog()
         } else {
             VStack(spacing: 0) {
                 switch router.tab {
@@ -40,26 +40,9 @@ struct ContentView: View {
                     CustomTabView(selectedTab: $router.tab)
                 }
             }
+            .presentDialog()
             .background(.surface)
             .ignoresSafeArea(edges: .bottom)
-            .showCustomDialog(
-                isPresented: Binding(
-                    get: { dialogManager.currentDialog != nil },
-                    set: { if !$0 { dialogManager.dismiss() } }
-                ),
-                dialogType: dialogManager.currentDialog ?? .error,
-                action: { dialogManager.performAction() }
-            )
-            .onAppear {
-                UserService.shared.getUser { result in
-                    switch result {
-                    case .success(let dto):
-                        userModel.fromGetUserDTO(dto: dto)
-                    case .failure(let error):
-                        print(error.detail)
-                    }
-                }
-            }
         }
     }
 }
@@ -67,7 +50,7 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .environmentObject(Router())
-        .environmentObject(Authenticator())
+        .environmentObject(Authenticator(dialogManager: DialogManager(), userModel: UserModel()))
         .environmentObject(DialogManager())
         .environmentObject(UserModel())
 }
