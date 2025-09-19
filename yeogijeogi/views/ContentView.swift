@@ -50,7 +50,7 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .environmentObject(Router())
-        .environmentObject(Authenticator(dialogManager: DialogManager(), userModel: UserModel()))
+        .environmentObject(Authenticator(dialogManager: DialogManager()))
         .environmentObject(DialogManager())
         .environmentObject(UserModel())
 }
