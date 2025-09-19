@@ -27,6 +27,9 @@ enum APIError: Error, LocalizedError {
     case userAlreadyExist // 409 user-already-exists
     case userWithdrawalFailed // 500 user-withdrawal-failed
 
+    // Course
+    case courseFetchFailed // 500 course-fetch-failed
+
     var errorDescription: String? {
         switch self {
         case .decodingFailed:
@@ -83,6 +86,9 @@ enum APIError: Error, LocalizedError {
 
         case .userWithdrawalFailed:
             return "사용자 탈퇴에 실패했습니다."
+
+        case .courseFetchFailed:
+            return "코스를 불러오는데 실패했습니다."
 
         default:
             return "알 수 없는 오류가 발생했습니다."
