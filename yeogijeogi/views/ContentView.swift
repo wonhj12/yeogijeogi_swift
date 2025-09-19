@@ -9,7 +9,7 @@ struct ContentView: View {
 
     var body: some View {
         if authenticator.signState == .signOut {
-            LoginView()
+            LoginView(authenticator: authenticator)
                 .presentDialog()
         } else {
             VStack(spacing: 0) {

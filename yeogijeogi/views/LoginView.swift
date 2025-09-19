@@ -1,6 +1,13 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject private var authenticator: Authenticator
+    @StateObject private var viewModel: LoginViewModel
+
+    init(authenticator: Authenticator) {
+        _viewModel = StateObject(wrappedValue: LoginViewModel(authenticator: authenticator))
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             Spacer()
@@ -15,11 +22,11 @@ struct LoginView: View {
 
             Spacer()
 
-            LoginButton(type: .google)
+            LoginButton(viewModel: viewModel, type: .google)
             Spacer()
                 .frame(height: 12)
 
-            LoginButton(type: .apple)
+            LoginButton(viewModel: viewModel, type: .apple)
             Spacer()
                 .frame(height: 98)
         }
@@ -28,5 +35,5 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView()
+    LoginView(authenticator: Authenticator(dialogManager: DialogManager()))
 }
