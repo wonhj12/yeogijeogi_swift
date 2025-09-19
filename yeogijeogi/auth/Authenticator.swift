@@ -6,14 +6,12 @@ class Authenticator: ObservableObject {
     @Published var signState: SignState = .signOut
     
     private let dialogManager: DialogManager
-    private let userModel: UserModel
     
     private var strategy: AuthenticationStrategy?
     private var user: User?
     
-    init(dialogManager: DialogManager, userModel: UserModel) {
+    init(dialogManager: DialogManager) {
         self.dialogManager = dialogManager
-        self.userModel = userModel
     }
 
     func checkSignState() {
@@ -47,17 +45,7 @@ class Authenticator: ObservableObject {
             print("Failed to get strategy: \(error.localizedDescription)")
         }
         
-        UserService.shared.getUser { result in
-            switch result {
-            case .success(let dto):
-                self.userModel.fromGetUserDTO(dto: dto)
-                self.updateSignState(.signIn)
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.dialogManager.show(.dialog(type: .error(message: error.localizedDescription)))
-                }
-            }
-        }
+        updateSignState(.signIn)
     }
     
     func signIn(with strategy: AuthenticationStrategy) {
