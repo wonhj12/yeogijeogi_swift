@@ -17,7 +17,9 @@ final class SessionManager {
             guard let self else { return }
             switch result {
             case .success(let dto):
-                self.userModel.fromGetUserDTO(dto: dto)
+                DispatchQueue.main.async {
+                    self.userModel.fromGetUserDTO(dto: dto)
+                }
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.dialogManager.show(.dialog(type: .error(message: error.localizedDescription)))
@@ -29,7 +31,9 @@ final class SessionManager {
             guard let self else { return }
             switch result {
             case .success(let coursesDTO):
-                self.courseModel.fromGetCoursesDTO(dto: coursesDTO)
+                DispatchQueue.main.async {
+                    self.courseModel.fromGetCoursesDTO(dto: coursesDTO)
+                }
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.dialogManager.show(.dialog(type: .error(message: error.localizedDescription)))
