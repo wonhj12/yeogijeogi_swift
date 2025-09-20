@@ -5,13 +5,13 @@ import GoogleSignIn
 class Authenticator: ObservableObject {
     @Published var signState: SignState = .signOut
     
-    private let dialogManager: DialogManager
+    private let dialogManager: DialogManagerProtocol
     private let userService: UserServiceProtocol
     
     private var strategy: AuthenticationStrategy?
     private var user: User?
     
-    init(dialogManager: DialogManager, userService: UserServiceProtocol) {
+    init(dialogManager: DialogManagerProtocol, userService: UserServiceProtocol) {
         self.dialogManager = dialogManager
         self.userService = userService
     }

@@ -1,14 +1,18 @@
 import Foundation
 import SwiftUI
 
-final class SessionManager {
-    private let userModel: UserModel
-    private let courseModel: CourseModel
-    private let dialogManager: DialogManager
+protocol SessionManagerProtocol {
+    func bootstrapAfterSignIn()
+}
+
+final class SessionManager: SessionManagerProtocol {
+    private let userModel: UserModelProtocol
+    private let courseModel: CourseModelProtocol
+    private let dialogManager: DialogManagerProtocol
     private let userService: UserServiceProtocol
     private let courseService: CourseServiceProtocol
 
-    init(userModel: UserModel, courseModel: CourseModel, dialogManager: DialogManager, userService: UserServiceProtocol, courseService: CourseServiceProtocol) {
+    init(userModel: UserModelProtocol, courseModel: CourseModelProtocol, dialogManager: DialogManagerProtocol, userService: UserServiceProtocol, courseService: CourseServiceProtocol) {
         self.userModel = userModel
         self.courseModel = courseModel
         self.dialogManager = dialogManager

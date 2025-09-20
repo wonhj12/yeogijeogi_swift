@@ -1,6 +1,12 @@
+import Foundation
 import SwiftUI
 
-final class DialogManager: ObservableObject {
+protocol DialogManagerProtocol {
+    func show(_ dialog: AnyDialog)
+    func dismiss()
+}
+
+final class DialogManager: ObservableObject, DialogManagerProtocol {
     @Published var currentDialog: AnyDialog? = nil
 
     func show(_ dialog: AnyDialog) {

@@ -19,6 +19,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct yeogijeogiApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
+    // Managers
     @StateObject private var router: Router
     @StateObject private var dialogManager: DialogManager
     @StateObject private var authenticator: Authenticator

@@ -7,7 +7,11 @@
 
 import Foundation
 
-class CourseModel: ObservableObject {
+protocol CourseModelProtocol {
+    func fromGetCoursesDTO(dto: GetCoursesResDTO)
+}
+
+class CourseModel: ObservableObject, CourseModelProtocol {
     @Published var courses: [CoursePreview] = []
 
     func fromGetCoursesDTO(dto: GetCoursesResDTO) {
