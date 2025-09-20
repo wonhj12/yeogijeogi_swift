@@ -47,61 +47,61 @@ enum APIService {
     }
 
     private static func handleError(from response: AFDataResponse<Data>) -> APIError {
+        if let statusCode = response.response?.statusCode {
+            let errorDetail: ErrorDetail? = {
+                if let data = response.data {
+                    return try? JSONDecoder().decode(ErrorDetail.self, from: data)
+                }
+                return nil
+            }()
+
+            switch statusCode {
+            case 401:
+                switch errorDetail?.detail {
+                case "invalid-token": return .invalidToken
+                case "token-expired": return .tokenExpired
+                case "token-revoked": return .tokenRevoked
+                default:
+                    return .unauthorized(detail: errorDetail?.detail)
+                }
+
+            case 403:
+                return .forbidden(detail: errorDetail?.detail)
+
+            case 404:
+                switch errorDetail?.detail {
+                case "user-not-found": return .userNotFound
+                default:
+                    return .notFound(detail: errorDetail?.detail)
+                }
+
+            case 409:
+                switch errorDetail?.detail {
+                case "user-already-exists": return .userAlreadyExist
+                default:
+                    return .badRequest(detail: errorDetail?.detail)
+                }
+
+            case 400...499:
+                return .badRequest(detail: errorDetail?.detail)
+
+            case 500...599:
+                switch errorDetail?.detail {
+                case "user-withdrawal-failed": return .userWithdrawalFailed
+                case "course-fetch-failed": return .courseFetchFailed
+                default:
+                    return .serverError(statusCode: statusCode)
+                }
+
+            default:
+                break
+            }
+        }
+
         if let afError = response.error {
             return .networkError(afError)
         }
 
-        guard let statusCode = response.response?.statusCode else {
-            return .unknown
-        }
-
-        let errorDetail: ErrorDetail? = {
-            if let data = response.data {
-                return try? JSONDecoder().decode(ErrorDetail.self, from: data)
-            }
-            return nil
-        }()
-
-        switch statusCode {
-        case 401:
-            switch errorDetail?.detail {
-            case "invalid-token": return .invalidToken
-            case "token-expired": return .tokenExpired
-            case "token-revoked": return .tokenRevoked
-            default:
-                return .unauthorized(detail: errorDetail?.detail)
-            }
-
-        case 403:
-            return .forbidden(detail: errorDetail?.detail)
-
-        case 404:
-            switch errorDetail?.detail {
-            case "user-not-found": return .userNotFound
-            default:
-                return .notFound(detail: errorDetail?.detail)
-            }
-
-        case 409:
-            switch errorDetail?.detail {
-            case "user-already-exists": return .userAlreadyExist
-            default:
-                return .badRequest(detail: errorDetail?.detail)
-            }
-
-        case 400...499:
-            return .badRequest(detail: errorDetail?.detail)
-
-        case 500...599:
-            switch errorDetail?.detail {
-            case "user-withdrawal-failed": return .userWithdrawalFailed
-            case "course-fetch-failed": return .courseFetchFailed
-            default:
-                return .serverError(statusCode: statusCode)
-            }
-
-        default:
-            return .unknown
-        }
+        return .unknown
     }
 }
