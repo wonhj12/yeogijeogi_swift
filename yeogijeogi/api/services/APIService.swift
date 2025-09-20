@@ -95,6 +95,7 @@ enum APIService {
         case 500...599:
             switch errorDetail?.detail {
             case "user-withdrawal-failed": return .userWithdrawalFailed
+            case "course-fetch-failed": return .courseFetchFailed
             default:
                 return .serverError(statusCode: statusCode)
             }
