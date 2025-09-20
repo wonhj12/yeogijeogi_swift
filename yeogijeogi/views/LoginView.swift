@@ -33,7 +33,3 @@ struct LoginView: View {
         .surface()
     }
 }
-
-#Preview {
-    LoginView(authenticator: Authenticator(dialogManager: DialogManager()))
-}

@@ -25,10 +25,3 @@ struct LoginButton: View {
         .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
-
-#Preview {
-    LoginButton(
-        viewModel: LoginViewModel(authenticator: Authenticator(dialogManager: DialogManager())),
-        type: .apple
-    )
-}
