@@ -33,8 +33,10 @@ struct yeogijeogiApp: App {
         let courseModel = CourseModel()
 
         let dialogManager = DialogManager()
-        let authenticator = Authenticator(dialogManager: dialogManager)
-        let sessionManager = SessionManager(userModel: userModel, courseModel: courseModel, dialogManager: dialogManager)
+        let userService = UserService()
+        let courseService = CourseService()
+        let authenticator = Authenticator(dialogManager: dialogManager, userService: userService)
+        let sessionManager = SessionManager(userModel: userModel, courseModel: courseModel, dialogManager: dialogManager, userService: userService, courseService: courseService)
         let router = Router()
 
         _dialogManager = StateObject(wrappedValue: dialogManager)

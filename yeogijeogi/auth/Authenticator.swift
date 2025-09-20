@@ -6,12 +6,14 @@ class Authenticator: ObservableObject {
     @Published var signState: SignState = .signOut
     
     private let dialogManager: DialogManager
+    private let userService: UserServiceProtocol
     
     private var strategy: AuthenticationStrategy?
     private var user: User?
     
-    init(dialogManager: DialogManager) {
+    init(dialogManager: DialogManager, userService: UserServiceProtocol) {
         self.dialogManager = dialogManager
+        self.userService = userService
     }
 
     func checkSignState() {
@@ -85,7 +87,7 @@ class Authenticator: ObservableObject {
             return
         }
         
-        UserService.shared.deleteUser { [weak self] result in
+        userService.deleteUser { [weak self] result in
             guard let self else { return }
                     
             switch result {
@@ -130,7 +132,7 @@ class Authenticator: ObservableObject {
             }
                 
             if let userInfo = authResult.additionalUserInfo, userInfo.isNewUser {
-                UserService.shared.createUser { result in
+                self.userService.createUser { result in
                     switch result {
                     case .success:
                         self.updateSignState(.signIn)
