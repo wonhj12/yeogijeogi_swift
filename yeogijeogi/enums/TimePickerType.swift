@@ -1,6 +1,15 @@
+/// The components of a time picker.
+///
+/// This enum defines the different units of time that can be selected in a time picker.
 enum TimePickerType {
-    case hour, minute
+    /// The hour component.
+    case hour
+    /// The minute component.
+    case minute
+}
 
+extension TimePickerType {
+    /// The maximum value for the time component.
     var maxValue: Int {
         switch self {
         case .hour:
@@ -10,6 +19,7 @@ enum TimePickerType {
         }
     }
 
+    /// The step value for the time component.
     var stride: Int {
         switch self {
         case .hour:
@@ -19,6 +29,7 @@ enum TimePickerType {
         }
     }
 
+    /// The label for the time component.
     var label: String {
         switch self {
         case .hour:
