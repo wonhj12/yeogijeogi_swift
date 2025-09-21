@@ -7,9 +7,6 @@ protocol UserServiceProtocol {
 }
 
 class UserService: UserServiceProtocol {
-
-    init() {}
-
     func createUser(completion: @escaping (Result<Void, Error>) -> Void) {
         APIService.request(UserRouter.createUser) { (result: Result<Void, APIError>) in
             completion(result.mapError { $0 as Error })
