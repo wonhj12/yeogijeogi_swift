@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject private var authenticator: Authenticator
     @StateObject private var viewModel: LoginViewModel
 
     init(authenticator: Authenticator) {
