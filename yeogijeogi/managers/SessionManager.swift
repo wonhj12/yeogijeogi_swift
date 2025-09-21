@@ -5,7 +5,7 @@ protocol SessionManagerProtocol {
     func bootstrapAfterSignIn()
 }
 
-final class SessionManager: SessionManagerProtocol {
+final class SessionManager: ObservableObject, SessionManagerProtocol {
     private let userModel: UserModelProtocol
     private let courseModel: CourseModelProtocol
     private let dialogManager: DialogManagerProtocol

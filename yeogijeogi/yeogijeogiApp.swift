@@ -27,7 +27,7 @@ struct yeogijeogiApp: App {
     // Models
     @StateObject private var userModel: UserModel
     @StateObject private var courseModel: CourseModel
-    @State private var sessionManager: SessionManager? = nil
+    @StateObject private var sessionManager: SessionManager
 
     init() {
         let userModel = UserModel()
@@ -45,7 +45,7 @@ struct yeogijeogiApp: App {
         _router = StateObject(wrappedValue: router)
         _userModel = StateObject(wrappedValue: userModel)
         _courseModel = StateObject(wrappedValue: courseModel)
-        _sessionManager = State(initialValue: sessionManager)
+        _sessionManager = StateObject(wrappedValue: sessionManager)
     }
 
     var body: some Scene {
@@ -56,10 +56,11 @@ struct yeogijeogiApp: App {
                 .environmentObject(dialogManager)
                 .environmentObject(userModel)
                 .environmentObject(courseModel)
+                .environmentObject(sessionManager)
                 .onAppear { authenticator.checkSignState() }
                 .onChange(of: authenticator.signState) { _, newValue in
                     if newValue == .signIn {
-                        sessionManager?.bootstrapAfterSignIn()
+                        sessionManager.bootstrapAfterSignIn()
                     }
                 }
         }
