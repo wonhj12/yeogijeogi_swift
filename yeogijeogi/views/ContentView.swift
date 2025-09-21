@@ -9,7 +9,7 @@ struct ContentView: View {
 
     var body: some View {
         if authenticator.signState == .signOut {
-            LoginView()
+            LoginView(authenticator: authenticator)
                 .presentDialog()
         } else {
             VStack(spacing: 0) {
@@ -45,12 +45,4 @@ struct ContentView: View {
             .ignoresSafeArea(edges: .bottom)
         }
     }
-}
-
-#Preview {
-    ContentView()
-        .environmentObject(Router())
-        .environmentObject(Authenticator(dialogManager: DialogManager()))
-        .environmentObject(DialogManager())
-        .environmentObject(UserModel())
 }

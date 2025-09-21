@@ -7,12 +7,14 @@
 
 import Foundation
 
-class CourseService {
-    static let shared = CourseService()
+protocol CourseServiceProtocol {
+    func getCourses(completion: @escaping (Result<GetCoursesResDTO, Error>) -> Void)
+}
 
-    private init() {}
-
-    func getCourses(completion: @escaping (Result<GetCoursesResDTO, APIError>) -> Void) {
-        APIService.request(CourseRouter.getCourses, completion: completion)
+class CourseService: CourseServiceProtocol {
+    func getCourses(completion: @escaping (Result<GetCoursesResDTO, Error>) -> Void) {
+        APIService.request(CourseRouter.getCourses) { (result: Result<GetCoursesResDTO, APIError>) in
+            completion(result.mapError { $0 as Error })
+        }
     }
 }

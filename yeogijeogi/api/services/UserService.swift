@@ -1,14 +1,22 @@
-class UserService {
-    static let shared = UserService()
+import Foundation
 
-    private init() {}
+protocol UserServiceProtocol {
+    func createUser(completion: @escaping (Result<Void, Error>) -> Void)
+    func deleteUser(completion: @escaping (Result<Void, Error>) -> Void)
+    func getUser(completion: @escaping (Result<GetUserResDTO, APIError>) -> Void)
+}
 
-    func createUser(completion: @escaping (Result<Void, APIError>) -> Void) {
-        APIService.request(UserRouter.createUser, completion: completion)
+class UserService: UserServiceProtocol {
+    func createUser(completion: @escaping (Result<Void, Error>) -> Void) {
+        APIService.request(UserRouter.createUser) { (result: Result<Void, APIError>) in
+            completion(result.mapError { $0 as Error })
+        }
     }
 
-    func deleteUser(completion: @escaping (Result<Void, APIError>) -> Void) {
-        APIService.request(UserRouter.deleteUser, completion: completion)
+    func deleteUser(completion: @escaping (Result<Void, Error>) -> Void) {
+        APIService.request(UserRouter.deleteUser) { (result: Result<Void, APIError>) in
+            completion(result.mapError { $0 as Error })
+        }
     }
 
     func getUser(completion: @escaping (Result<GetUserResDTO, APIError>) -> Void) {
